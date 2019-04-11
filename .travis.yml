@@ -5,18 +5,18 @@ services:
 before_install:
   - docker build -t lbornshtain/react-test -f ./client/Dockerfile.dev ./client
 
-scripts:
+script:
   - docker run lbornshtain/react-test npm test -- --coverage
 
-# after_success:
-#   - docker build -t lbornshtain/multi-client ./client
-#   - docker build -t lbornshtain/multi-nginx ./nginx
-#   - docker build -t lbornshtain/multi-server ./server
-#   - docker build -t lbornshtain/multi-worker ./worker
+after_success:
+  - docker build -t lbornshtain/multi-client ./client
+  - docker build -t lbornshtain/multi-nginx ./nginx
+  - docker build -t lbornshtain/multi-server ./server
+  - docker build -t lbornshtain/multi-worker ./worker
 
-#   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-#   - docker push lbornshtain/multi-client
-#   - docker push lbornshtain/multi-nginx
-#   - docker push lbornshtain/multi-server
-#   - docker push lbornshtain/multi-worker
+  - docker push lbornshtain/multi-client
+  - docker push lbornshtain/multi-nginx
+  - docker push lbornshtain/multi-server
+  - docker push lbornshtain/multi-worker
