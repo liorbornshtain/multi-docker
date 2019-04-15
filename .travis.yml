@@ -20,3 +20,16 @@ after_success:
   - docker push lbornshtain/multi-nginx
   - docker push lbornshtain/multi-server
   - docker push lbornshtain/multi-worker
+
+  deploy:
+    provider: elasticbeanstalk
+    region: "eu-north-1"
+    app: "Multi-docker"
+    env: "MultiDocker-env"
+    bucket_name: "elasticbeanstalk-eu-north-1-414483562632"
+    bucket_path: "docker-multi"
+    on:
+      branch: master
+    access_key_id: "$AWS_ACCESS_KEY"
+    secret_access_key:
+      secure: "$AWS_SECRET_KEY"
